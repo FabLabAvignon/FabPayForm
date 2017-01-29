@@ -1,0 +1,75 @@
+/**********/
+/*  MAIN  */
+/**********/
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #ecf0f1;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.container {
+    margin: auto;
+    padding: 50px 100px 10px 100px;
+    max-width: 500px;
+    background-color: white;
+}
+
+h1 {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 2em;
+    font-weight: bold;
+}
+h2 {
+    margin-top: 25px;
+    margin-bottom: 10px;
+    font-size: 1.6em;
+    font-weight: bold;
+}
+h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+p {
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+
+/**********/
+/* INPUTS */
+/**********/
+
+.input-block {
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+.input-block input {
+    outline: none;
+    border: none;
+    border-bottom: 2px solid #bdc3c7;
+    padding: 5px;
+    padding-left: 0px;
+    width: 200px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.9em;
+    color: #34495e;
+}
+.input-block input:focus {
+    border-color: #16a085;
+    color: black;
+}
+.input-block input[type=radio] {
+    width: auto;
+}
+
+/* Validation */
+.input-error {
+    border-color: #e74c3c;
+    /*color: #c0392b;*/
+}
+
+/*Animation*/
