@@ -109,8 +109,13 @@ Div sticker is basically composed by 2 child :
 
 /* Validation */
 .input-error {
-    border-color: #e74c3c;
-    /*color: #c0392b;*/
+    border-color: #e74c3c !important;
+    color: #e74c3c !important;
+}
+
+.input-ok {
+    border-color: #16a085 !important;
+    color: #16a085 !important;
 }
 
 /*Animation*/

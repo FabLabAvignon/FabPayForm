@@ -36,11 +36,11 @@
             </div>
             <div class="input-block">
                 <label for="familyName">Nom</label><br>
-                <input type="text" name="familyName" placeholder="Votre nom de famille">
+                <input class="input-error" value="exemple d'erreur" type="text" name="familyName" placeholder="Votre nom de famille">
             </div>
             <div class="input-block">
                 <label for="firstName">Prénom</label><br>
-                <input type="text" name="firstName" placeholder="Votre prénom">
+                <input class="input-ok" value="exemple de champ valide" type="text" name="firstName" placeholder="Votre prénom">
             </div>
             <div class="input-block">
                 <label for="email">Email</label><br>
@@ -50,9 +50,10 @@
             <div class="input-block">
                 <label for="frequence">Durée de votre adhésion</label><br>
                 <?php
-                  foreach($conf['payOptions'] as $key => $infos) {
-                    if ($key != 'currencyCode')
-                      echo "<input type=\"radio\" name=\"duration\" value=\"" . $infos[0] . "\">" . $key . " - " . $infos[0] . " " . $conf['payOptions']['currencyCode'] . "</option>";
+                  foreach ($conf['payOptions'] as $key => $infos) {
+                      if ($key != 'currencyCode') {
+                          echo "<input type=\"radio\" name=\"duration\" value=\"" . $infos[0] . "\">" . $key . " - " . $infos[0] . " " . $conf['payOptions']['currencyCode'] . "</option>";
+                      }
                   }
                 ?>
             </div>
@@ -67,7 +68,7 @@
             <!-- Optionals  -->
             <div class="input-block">
                 <label for="birthday">Date de naissance</label><br>
-                <input type="date" name="birthday" placeholder="jj/mm/aaaa">
+                <input type="date" name="birthday" placeholder="jj/mm/aaaa"><span></span>
             </div>
             <div class="input-block">
                 <label for="adress">Adresse</label><br>
