@@ -1,4 +1,6 @@
-<?php require_once "lib/form.php"; ?>
+<?php
+  $conf = require("lib/config.php");
+?>
 
 <!DOCTYPE html>
 <html>
@@ -17,9 +19,9 @@
         <p>Vous y êtes presque ! Pour devenir adhérent, suivez les instructions
         ci dessous...</p>
 
-        <form class="" action="" method="post">
+        <form class="" action="validateForm.php" method="post">
 
-            <!-- OBLIGATOIRES  -->
+            <!-- Requiered  -->
             <h2>Donnez nous quelques informations à propos de vous</h2>
             <h3>Le minimum syndical</h3>
 
@@ -36,8 +38,20 @@
                 <input type="email" name="email" placeholder="Votre email" value="">
             </div>
 
+            <div class="input-block">
+                <label for="frequence">Durée de votre adhésion</label><br>
+                <select name="duration" value="">
+                  <?php
+                    foreach($conf['payOptions'] as $key => $infos) {
+                      if ($key != 'currencyCode')
+                        echo "<option value=\"\">" . $key . " - " . $infos[0] . " " . $conf['payOptions']['currencyCode'] . "</option>";
+                    }
+                  ?>
+                </select>
+            </div>
+
             <h3>Si vous êtes bavard, vous pouvez nous en dire plus...</h3>
-            <!-- FACULTATIFS  -->
+            <!-- Optionals  -->
 
             <div class="input-block">
                 <!-- Value à vérifier auprès de Nico ! -->
@@ -75,11 +89,6 @@
                 <!-- gsm ET tel ? quel différence ? ... -->
                 <label for="tel">Téléphone</label><br>
                 <input type="text" name="tel" placeholder="Votre téléphone" value="">
-            </div>
-            <div class="input-block">
-                <!-- Durée de l'abonnement ? -->
-                <label for="frequence">Durée de votre abo (1-12)</label><br>
-                <input type="text" name="frequence" placeholder="Combien de mois" class="input-error" value="">
             </div>
 
             <button type="submit" name="button">Adhérer</button>
