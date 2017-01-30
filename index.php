@@ -12,16 +12,21 @@
 </head>
 
 <body>
+    <br>
     <div class="container">
         <h1>Oh, alors vous voulez devenir un maker, hein ?</h1>
         <p>Vous y êtes presque ! Pour devenir adhérent, suivez les instructions
         ci dessous...</p>
-
         <form class="" action="" method="post">
 
             <!-- OBLIGATOIRES  -->
             <h2>Donnez nous quelques informations à propos de vous</h2>
-            <h3>Le minimum syndical</h3>
+
+            <div class="sticker">
+                <h3>Le minimum syndical...</h3>
+                <div class="arrow-right"></div>
+            </div>
+            <p class="indice">Les informations ci-dessous sont obligatoire.</p>
 
             <div class="input-block">
                 <label for="familyName">Nom</label><br>
@@ -36,7 +41,10 @@
                 <input type="email" name="email" placeholder="Votre email" value="">
             </div>
 
-            <h3>Si vous êtes bavard, vous pouvez nous en dire plus...</h3>
+            <div class="sticker">
+                <h3>Vous êtes bavard ?</h3>
+                <div class="arrow-right"></div>
+            </div>
             <!-- FACULTATIFS  -->
 
             <div class="input-block">
@@ -86,5 +94,6 @@
         </form>
     </div>
 
+    <br>
 </body>
 </html>
