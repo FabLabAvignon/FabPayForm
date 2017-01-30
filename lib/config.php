@@ -12,4 +12,7 @@ return Array(
     )
   ),
 );
+
+// On compte par mois et pas par jour !!
+// Voir la doc...
 ?>
