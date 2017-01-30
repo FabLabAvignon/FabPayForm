@@ -52,7 +52,7 @@
                 <?php
                   foreach($conf['payOptions'] as $key => $infos) {
                     if ($key != 'currencyCode')
-                      echo "<input type=\"radio\" name=\"duration\" value=\"" . $info[0] . "\">" . $key . " - " . $infos[0] . " " . $conf['payOptions']['currencyCode'] . "</option>";
+                      echo "<input type=\"radio\" name=\"duration\" value=\"" . $infos[0] . "\">" . $key . " - " . $infos[0] . " " . $conf['payOptions']['currencyCode'] . "</option>";
                   }
                 ?>
             </div>
