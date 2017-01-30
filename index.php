@@ -49,14 +49,12 @@
 
             <div class="input-block">
                 <label for="frequence">Durée de votre adhésion</label><br>
-                <select name="duration">
-                  <?php
-                    foreach($conf['payOptions'] as $key => $infos) {
-                      if ($key != 'currencyCode')
-                        echo "<option value=\"\">" . $key . " - " . $infos[0] . " " . $conf['payOptions']['currencyCode'] . "</option>";
-                    }
-                  ?>
-                </select>
+                <?php
+                  foreach($conf['payOptions'] as $key => $infos) {
+                    if ($key != 'currencyCode')
+                      echo "<input type=\"radio\" name=\"duration\" value=\"" . $info[0] . "\">" . $key . " - " . $infos[0] . " " . $conf['payOptions']['currencyCode'] . "</option>";
+                  }
+                ?>
             </div>
 
 
