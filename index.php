@@ -19,7 +19,7 @@
         <p>Vous y êtes presque ! Pour devenir adhérent, suivez les instructions
         ci dessous...</p>
 
-        <form class="" action="validateForm.php" method="post">
+        <form class="" action="validateForm.php" method="POST">
 
             <!-- Requiered  -->
             <h2>Donnez nous quelques informations à propos de vous</h2>
@@ -27,20 +27,20 @@
 
             <div class="input-block">
                 <label for="familyName">Nom</label><br>
-                <input type="text" name="familyName" placeholder="Votre nom de famille" value="">
+                <input type="text" name="familyName" placeholder="Votre nom de famille">
             </div>
             <div class="input-block">
                 <label for="firstName">Prénom</label><br>
-                <input type="text" name="firstName" placeholder="Votre prénom" value="">
+                <input type="text" name="firstName" placeholder="Votre prénom">
             </div>
             <div class="input-block">
                 <label for="email">Email</label><br>
-                <input type="email" name="email" placeholder="Votre email" value="">
+                <input type="email" name="email" placeholder="Votre email">
             </div>
 
             <div class="input-block">
                 <label for="frequence">Durée de votre adhésion</label><br>
-                <select name="duration" value="">
+                <select name="duration">
                   <?php
                     foreach($conf['payOptions'] as $key => $infos) {
                       if ($key != 'currencyCode')
@@ -54,41 +54,34 @@
             <!-- Optionals  -->
 
             <div class="input-block">
-                <!-- Value à vérifier auprès de Nico ! -->
                 <label for="gender">Civilité</label><br>
                 <input type="radio" name="gender" value="homme"> Mr<br>
                 <input type="radio" name="gender" value="femme"> Mme
             </div>
             <div class="input-block">
                 <label for="birthday">Date de naissance</label><br>
-                <input type="date" name="birthday" placeholder="jj/mm/aaaa" value="">
+                <input type="date" name="birthday" placeholder="jj/mm/aaaa">
             </div>
             <div class="input-block">
-                <!-- Address avec 2 d ? .. -->
                 <label for="adress">Adresse</label><br>
-                <input type="text" name="adress" placeholder="Votre adresse" value="">
+                <input type="text" name="adress" placeholder="Votre adresse">
             </div>
             <div class="input-block">
                 <label for="city">Ville</label><br>
-                <input type="text" name="city" placeholder="Votre ville" value="">
+                <input type="text" name="city" placeholder="Votre ville">
             </div>
             <div class="input-block">
                 <label for="postCode">Code postal</label><br>
-                <input type="text" name="postCode" placeholder="Votre code postal" value="">
+                <input type="text" name="postCode" placeholder="Votre code postal">
             </div>
             <div class="input-block">
                 <!-- Contry ? ...  -->
                 <label for="country">Pays</label><br>
-                <input type="text" name="country" placeholder="Votre pays" value="">
+                <input type="text" name="country" placeholder="Votre pays">
             </div>
             <div class="input-block">
-                <label for="gsm">GSM</label><br>
-                <input type="text" name="gsm" placeholder="Votre GSM" value="">
-            </div>
-            <div class="input-block">
-                <!-- gsm ET tel ? quel différence ? ... -->
                 <label for="tel">Téléphone</label><br>
-                <input type="text" name="tel" placeholder="Votre téléphone" value="">
+                <input type="text" name="tel" placeholder="Votre téléphone">
             </div>
 
             <button type="submit" name="button">Adhérer</button>
