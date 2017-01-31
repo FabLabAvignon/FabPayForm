@@ -38,29 +38,33 @@
             <p class="indice">Les informations ci-dessous sont obligatoire.</p>
             <div class="input-block">
                 <label for="gender">Civilité</label><br>
-                <input type="radio" name="gender" value="homme"> Mr<br>
-                <input type="radio" name="gender" value="femme"> Mme
+                <input type="radio" name="gender" value="man"> Mr<br>
+                <input type="radio" name="gender" value="woman"> Mme
             </div>
             <div class="input-block">
-                <label for="familyName">Nom</label><br>
-                <input class="input-error" value="exemple d'erreur" type="text" name="familyName" placeholder="Votre nom de famille">
+                <label for="lastName">Nom</label><br>
+                <input class="input-error" value="exemple d'erreur" type="text" name="lastName" placeholder="Votre nom de famille">
             </div>
             <div class="input-block">
                 <label for="firstName">Prénom</label><br>
                 <input class="input-ok" value="exemple de champ valide" type="text" name="firstName" placeholder="Votre prénom">
             </div>
             <div class="input-block">
-                <label for="email">Email</label><br>
-                <input type="email" name="email" placeholder="Votre email">
+                <label for="emailAddr">Email</label><br>
+                <input type="email" name="emailAddr" placeholder="Votre email">
             </div>
 
             <div class="input-block">
-                <label for="frequence">Durée de votre adhésion</label><br>
+                <label for="duration">Durée de votre adhésion</label><br>
                 <?php
-                  foreach ($conf['payOptions'] as $key => $infos) {
-                      if ($key != 'currencyCode') {
-                          echo "<input type=\"radio\" name=\"duration\" value=\"" . $infos[0] . "\">" . $key . " - " . $infos[0] . " " . $conf['payOptions']['currencyCode'] . "</option>";
-                      }
+                  foreach($conf['payOptions'] as $key => $infos) {
+                    if ($key != 'currencyCode') {
+                      if(!isset($i))
+                        $i = 0;
+
+                      $i++;
+                      echo "<input type=\"radio\" name=\"duration\" value=\"" . $i . "\">" . $key . " - " . $infos[0] . " " . $conf['payOptions']['currencyCode'] . "</option><br>";
+                    }
                   }
                 ?>
             </div>
@@ -74,12 +78,12 @@
 
             <!-- Optionals  -->
             <div class="input-block">
-                <label for="birthday">Date de naissance</label><br>
-                <input type="date" name="birthday" placeholder="jj/mm/aaaa"><span></span>
+                <label for="birthDate">Date de naissance</label><br>
+                <input type="date" name="birthDate" placeholder="jj/mm/aaaa">
             </div>
             <div class="input-block">
-                <label for="adress">Adresse</label><br>
-                <input type="text" name="adress" placeholder="Votre adresse">
+                <label for="address">Adresse</label><br>
+                <input type="text" name="address" placeholder="Votre adresse">
             </div>
             <div class="input-block">
                 <label for="city">Ville</label><br>
@@ -95,11 +99,11 @@
                 <input type="text" name="country" placeholder="Votre pays">
             </div>
             <div class="input-block">
-                <label for="tel">Téléphone</label><br>
-                <input type="text" name="tel" placeholder="Votre téléphone">
+                <label for="phoneNum">Téléphone</label><br>
+                <input type="text" name="phoneNum" placeholder="Votre téléphone">
             </div>
 
-            <button type="submit" name="button">Adhérer</button>
+            <button type="submit">Adhérer</button>
         </form>
     </div>
 
