@@ -5,12 +5,19 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Meta -->
     <meta charset="utf-8">
+
+    <!-- Title -->
     <title>Devenez adhérent</title>
 
+    <!-- Stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
+    <!-- Scripts -->
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script defer src="js/main.js"></script>
 </head>
 
 <body>
