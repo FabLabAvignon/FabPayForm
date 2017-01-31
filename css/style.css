@@ -115,7 +115,7 @@ Div sticker is basically composed by 2 child :
 
 .input-ok {
     border-color: #16a085 !important;
-    color: #16a085 !important;
+    /*color: #16a085 !important;*/
 }
 
 /*Animation*/
