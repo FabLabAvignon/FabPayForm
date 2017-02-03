@@ -1,0 +1,9 @@
+Here is a directory where you put flags file,
+any flag setup in 'lib/config.php' file will be executed.
+
+E.g.
+  1 Mois - Premium' => Array (
+    '20.00',
+    '1',
+    'z' -> Here is the z flag, so the file 'lib/flags/z.php' will be executed.
+  )

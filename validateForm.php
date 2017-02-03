@@ -1,10 +1,46 @@
 <?php
-  /* If there is no POST data */
-  if(empty($_POST)) {
-    header("Location: ./"); // Redirect to form
+  session_start();
+
+  /* Check if there is all requiered fields */
+
+  $allOk = true;
+  if (empty($_POST['gender'])) {
+    $allOk = false;
+
+  } elseif (empty($_POST['lastName'])) {
+    $allOk = false;
+
+  } elseif (empty($_POST['firstName'])) {
+    $allOk = false;
+
+  } elseif (empty($_POST['emailAddr'])) {
+    $allOk = false;
+
+  } elseif (empty($_POST['duration'])) {
+    $allOk = false;
+
+  } /*elseif ($_POST['']) {
+    $allOk = false;
+
+  } elseif ($_POST['']) {
+    $allOk = false;
+
+  } elseif ($_POST['']) {
+    $allOk = false;
+
+  } elseif ($_POST['']) {
+    $allOk = false;
+
+  } elseif ($_POST['']) {
+    $allOk = false;
+
+  }*/
+
+  if (!$allOk) {
+    header("Location: ./");
     exit;
   }
 
-  echo var_dump($_POST);
-
+  /* Get payPal redirect url */
+  $oReq = curl_init();
 ?>

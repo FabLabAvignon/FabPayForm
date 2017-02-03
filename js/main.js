@@ -1,3 +1,3 @@
 $('.input-error').focus(function(){
-    $(this).removeClass('input-error').val('');
+  $(this).removeClass('input-error');
 });

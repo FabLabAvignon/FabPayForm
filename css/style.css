@@ -4,77 +4,75 @@
 
 /* General element */
 body {
-    margin: 0;
-    padding: 0;
-    background-color: #ecf0f1;
-    font-family: 'Open Sans', sans-serif;
+  margin: 0; padding: 0;
+  background-color: #ecf0f1;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .container {
-    margin: auto;
-    padding: 10px 30px 10px 30px;
-    max-width: 500px;
-    background-color: white;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  margin: 16px auto;
+  padding: 10px 30px 10px 30px;
+  max-width: 500px;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 h1 {
-    margin-top: 30px;
-    margin-bottom: 10px;
-    font-size: 2em;
-    font-weight: bold;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  font-size: 2em;
+  font-weight: bold;
 }
 h2 {
-    margin-top: 25px;
-    margin-bottom: 10px;
-    font-size: 1.6em;
-    font-weight: bold;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  font-size: 1.6em;
+  font-weight: bold;
 }
 h3 {
-    margin-top: 20px;
-    margin-bottom: 10px;
-    font-size: 1.2em;
-    font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+  font-weight: bold;
 }
 p {
-    font-size: 1em;
-    margin-bottom: 10px;
+  font-size: 1em;
+  margin-bottom: 10px;
 }
 
-.indice {
-    font-size: 0.9em;
-    color: #7f8c8d;
+.hint {
+  font-size: 0.9em;
+  color: #7f8c8d;
 }
 
 /* Black title with arrow at the end */
 
 /*
-Div sticker is basically composed by 2 child :
-- h3
-- div (.arrow-right)
-*/
+ * Div sticker is basically composed by 2 child :
+ * - h3
+ * - div (.arrow-right)
+ */
 
 .sticker {
-    position: relative;
+  position: relative;
+  display: inline-block;
+
+  margin: 8px 0;
 }
-.sticker h3 {
-    background-color: black;
-    color: white;
-    padding: 15px;
-    margin-left: -30px;
-    padding-left: 30px;
-}
-.sticker * {
-    display: inline-block;
+.sticker .text {
+  display: inline-block;
+  background-color: black;
+  color: white;
+  padding: 15px;
+  margin-left: -30px;
+  padding-left: 30px;
 }
 .arrow-right {
-    position: absolute;
-    width: 0;
-    height: 0;
-    top: 25%;
-    border-top: 24px solid transparent;
-    border-bottom: 25px solid transparent;
-    border-left: 24px solid black;
+  display: inline-block;
+  position: absolute;
+  border-top: 24px solid transparent;
+  border-bottom: 22px solid transparent;
+  border-left: 24px solid black;
 }
 
 /**********/
@@ -82,40 +80,39 @@ Div sticker is basically composed by 2 child :
 /**********/
 
 .input-block {
-    margin-top: 20px;
-    margin-bottom: 15px;
+  margin-top: 20px;
+  margin-bottom: 15px;
 }
 .input-block input {
-    outline: none;
-    border: none;
-    border-bottom: 2px solid #bdc3c7;
-    padding: 5px;
-    padding-left: 0px;
-    width: 220px;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 0.9em;
-    color: #34495e;
-    transition: 0.3s;
+  border: none;
+  border-bottom: 2px solid #bdc3c7;
+  padding: 5px;
+  padding-left: 0;
+  width: 220px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.9em;
+  color: #34495e;
+  transition: 0.3s;
 }
 .input-block input:focus {
-    border-color: #16a085;
-    color: black;
+  border-color: #16a085;
+  color: black;
 }
 .input-block input[type=radio] {
-    cursor: pointer;
-    width: auto;
-    margin-top: 10px;
+  cursor: pointer;
+  width: auto;
+  margin-top: 10px;
 }
 
 /* Validation */
 .input-error {
-    border-color: #e74c3c !important;
-    color: #e74c3c !important;
+  border-color: #e74c3c !important;
+  color: #e74c3c !important;
 }
 
 .input-ok {
-    border-color: #16a085 !important;
-    /*color: #16a085 !important;*/
+  border-color: #16a085 !important;
+  /*color: #16a085 !important;*/
 }
 
 /*Animation*/

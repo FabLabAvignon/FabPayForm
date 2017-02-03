@@ -29,7 +29,24 @@ return Array(
     )
   ),
 
+  /* PayPal pay email */
+  'payEmail' => '<yourPayPalEmail>',
+
   /* FabManager API Key */
-  'apiKey' => '<apiKey>'
+  'apiKey' => '<apiKey>',
+
+  /* Database infos */
+  'dataBaseConf' => Array (
+    'dbUser' => '<userName>',
+    'dbPass' => '<passPhrase>',
+    'dbName' => '<dbName>',
+
+    'dbHost' => '127.0.0.1',
+    'dbPort' => '3306'
+  ),
+
+  /* Dev mode */
+  'devMode' => true,
+  'devPayEmail' => 'root-facilitator@cak3repo.xyz'
 );
 ?>
