@@ -1,5 +1,5 @@
 <?php
-  $conf = require("lib/config.php");
+  $config = require("lib/config.php");
 ?>
 
 <!DOCTYPE html>
@@ -53,15 +53,11 @@
         </div>
 
         <div class="input-block">
-          <label for="duration">Durée de votre adhésion</label><br>
+          <label for="membershipType">Durée de votre adhésion</label><br>
           <?php
-            foreach($conf['payOptions'] as $key => $infos) {
+            foreach($config['payOptions'] as $key => $infos) {
               if ($key != 'currencyCode') {
-                if(!isset($i))
-                  $i = 0;
-
-                $i++;
-                echo "<input type=\"radio\" name=\"duration\" value=\"" . $i . "\">" . $key . " - " . $infos[0] . " " . $conf['payOptions']['currencyCode'] . "</option><br>";
+                echo "<input type=\"radio\" name=\"membershipType\" value=\"" . $key . "\">" . $key . " - " . $infos[0] . " " . $config['payOptions']['currencyCode'] . "</option><br>";
               }
             }
           ?>
