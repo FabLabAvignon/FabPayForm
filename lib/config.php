@@ -19,6 +19,9 @@
      * in 'lib/flags/<flag>.php'.
      */
     'payOptions' => Array(
+      /* PayPal currency code (E.g. EUR, USD, AUD)
+       * -> https://developer.paypal.com/docs/classic/api/currency_codes/
+       */
       'currencyCode' => 'EUR',
       '1 Mois - Premium' => Array(
         '20.00',

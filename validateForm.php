@@ -47,87 +47,78 @@
 
   /* Generate transUniqueID */
   function NewTransId() {
-      $s = strtoupper(md5(uniqid(rand(),true)));
-      $guidText =
-          substr($s,0,8) . '-' .
-          substr($s,8,4) . '-' .
-          substr($s,12,4). '-' .
-          substr($s,16,4). '-' .
-          substr($s,20);
-      return $guidText;
+    $s = strtoupper(md5(uniqid(rand(),true)));
+    $guidText =
+      substr($s,0,8) . '-' .
+      substr($s,8,4) . '-' .
+      substr($s,12,4). '-' .
+      substr($s,16,4). '-' .
+      substr($s,20);
+    return $guidText;
   }
+  $transId = NewTransId();
+
+  /* Put all infos in database */
+    // Later
 
   /* Get payPal redirect url */
   if($config['devMode']) {
-    $oReq = curl_init("https://www.sandbox.paypal.com/cgi-bin/webscr");
+    $reqUrl = "https://www.sandbox.paypal.com/cgi-bin/webscr";
   } else {
-    $oReq = curl_init("https://www.paypal.com/cgi-bin/webscr");
+    $reqUrl = "https://www.paypal.com/cgi-bin/webscr";
   }
 
-  $transId = NewTransId();
-
-  /* Build PayPal request */ // Needs some explanation later..
+  /* Build PayPal request */
   $postFields = Array(
+    /* Command type */
     'cmd' => '_xclick',
-    'business' => $config['devMode'] ? $config['devPayEmail'] : $config['payEmail'],
+    /* PayPal seller email */
+    'business' => ($config['devMode'] ? $config['devPayEmail'] : $config['payEmail']),
+    /* PayPal display locale
+     * -> https://developer.paypal.com/docs/classic/api/locale_codes/
+     */
     'lc' => 'FR',
+
+    /* IPN Handler Url to automate payment handling */
     'notify_url' => dirname(
-      isset($_SERVER['HTTPS']) ? 'https://' : 'http://'
+      (isset($_SERVER['HTTPS']) ? 'https://' : 'http://')
       . $_SERVER['SERVER_NAME']
       . $_SERVER['REQUEST_URI'])
       . '/ipnHandler.php',
+
+    /* Url where customer is redirected after successful payment */
     'return' => dirname(
-      isset($_SERVER['HTTPS']) ? 'https://' : 'http://'
+      (isset($_SERVER['HTTPS']) ? 'https://' : 'http://')
       . $_SERVER['SERVER_NAME']
       . $_SERVER['REQUEST_URI'])
       . '/paySuccess.php',
+    /* Set return mode to POST, anyway,
+     * must be an HTTPS Url otherwise it will throw a warning.
+     */
     'rm' => 2,
+
+    /* Item name displayed on PayPal customer account */
     'item_name' => $config['itemName'],
-    'button_subtype' => 'services',
+
+    /* Disable notes & shipping address */
     'no_note' => 1,
     'no_shipping' => 1,
+
+    /* Passing params to PayPal,
+     * some are irrevelant, but needed,
+     * some are absolutly necessary
+     */
     'on0' => 'Type',
     'os0' => $_POST['membershipType'],
     'option_select0' => $_POST['membershipType'],
     'option_amount0' => $config['payOptions'][$_POST['membershipType']][0],
     'on1' => 'TransUID',
     'os1' => $transId,
-    'option_index' => 0,
-    'bn' => 'PP-BuyNowBF:btn_buynowCC_LG.gif:NonHosted',
-    'currencyCode' => 'EUR'
+
+    /* Currency code from config */
+    'currency_code' => $config['payOptions']['currencyCode']
   );
 
-  curl_setopt($oReq, CURLOPT_HEADER, true);
-  curl_setopt($oReq, CURLOPT_NOBODY, true);
-  curl_setopt($oReq, CURLOPT_RETURNTRANSFER, true);
-  curl_setopt($oReq, CURLOPT_COOKIESESSION, true);
-
-  curl_setopt($oReq, CURLOPT_SSLVERSION, 6);
-  curl_setopt($oReq, CURLOPT_SSL_VERIFYPEER, 1);
-  curl_setopt($oReq, CURLOPT_SSL_VERIFYHOST, 2);
-
-  curl_setopt($oReq, CURLOPT_POST, true);
-  curl_setopt($oReq, CURLOPT_POSTFIELDS, http_build_query($postFields));
-
-  $headVar = curl_exec($oReq);
-  $oHead = explode("\n", $headVar);
-
-  curl_close($oReq);
-
-  /* Get location in header */
-  for($i=0; $i < count($oHead); $i++)
-    if (strpos($oHead[$i], "Location:") !== false)
-      $reqLoc = (substr($oHead[$i], strpos($oHead[$i], "Location:") + strlen("Location:")));
-
-  /* Proxy cookies from paypal to client */
-  for($i=0; $i < count($oHead); $i++)
-    if (strpos($oHead[$i], "Set-Cookie:") !== false)
-      header($oHead[$i], false);
-      //echo $oHead[$i];
-
-  header("Location: " . $reqLoc, false);
-  exit;
-
-  /* Put all infos in database */
-
+  /* Redirect client to PayPal */
+  header("Location: " . $reqUrl . "?" . http_build_query($postFields));
 ?>
