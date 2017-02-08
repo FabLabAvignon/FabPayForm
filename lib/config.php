@@ -28,8 +28,13 @@
         '1',
         'z'
       ),
-      '1 An - Normal' => Array(
+      '1 An - Etudiant' => Array(
         '60.00',
+        '12',
+        ''
+      ),
+      '1 An - Salarié' => Array(
+        '150.00',
         '12',
         ''
       )
@@ -37,6 +42,16 @@
 
     /* PayPal pay email */
     'payEmail' => '<yourPayPalEmail>',
+
+    /* API credentials for PayPal requests,
+     * to generate them, follow this guide :
+     * -> https://developer.paypal.com/docs/classic/api/apiCredentials/#create-an-api-signature
+     */
+    'apiCred' => Array(
+      'user' => '<apiUser>',
+      'pass' => '<apiPass>',
+      'signature' => '<apiSignature>'
+    ),
 
     /* FabManager API Key */
     'apiKey' => '<apiKey>',
@@ -53,6 +68,11 @@
 
     /* Dev mode */
     'devMode' => true,
-    'devPayEmail' => 'root-facilitator@cak3repo.xyz'
+    'devPayEmail' => 'root-facilitator@cak3repo.xyz',
+    'devApiCred' => Array(
+      'user' => '<apiUser>',
+      'pass' => '<apiPass>',
+      'signature' => '<apiSignature>'
+    ),
   );
 ?>
