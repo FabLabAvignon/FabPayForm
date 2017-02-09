@@ -1,93 +1,58 @@
 <?php
-  require("lib/oPayPalAPI.php");
+  require("lib/oApi.php");
   $config = require("lib/config.php");
 
-  $postFields = Array(
-    /* Method & version */
-    'METHOD' => 'GetExpressCheckoutDetails',
-    'VERSION' => '204',
+  /* Check if we get PayPal infos */
+  if(isset($_GET['token']) && isset($_GET['PayerID'])) {
+    $payToken = $_GET['token'];
 
-    /* Athentification */
-    'USER' => $config['devMode'] ? $config['devApiCred']['user'] : $config['apiCred']['user'],
-    'PWD' => $config['devMode'] ? $config['devApiCred']['pass'] : $config['apiCred']['pass'],
-    'SIGNATURE' => $config['devMode'] ? $config['devApiCred']['signature'] : $config['apiCred']['signature'],
+    $oApiReq = new oApi();
+    $oApiReq->setUrl($config['devMode'] ? "https://api-3t.sandbox.paypal.com/nvp" : "https://api-3t.paypal.com/nvp");
 
-    'TOKEN' => $_GET['token'],
-  );
+    /* Get payment info */
+    $checkOutInfos = $oApiReq->sendRequest(Array(
+      /* Method & version */
+      'METHOD' => 'GetExpressCheckoutDetails',
+      'VERSION' => '204',
 
-  /* Create API Request */
-  if($config['devMode']) {
-    $oReq = curl_init("https://api-3t.sandbox.paypal.com/nvp");
+      /* Athentification */
+      'USER' => $config['devMode'] ? $config['devApiCred']['user'] : $config['apiCred']['user'],
+      'PWD' => $config['devMode'] ? $config['devApiCred']['pass'] : $config['apiCred']['pass'],
+      'SIGNATURE' => $config['devMode'] ? $config['devApiCred']['signature'] : $config['apiCred']['signature'],
+
+      'TOKEN' => $payToken,
+    ));
+
+    /* Execute payment (Note the array_merge, we reuse previous Api response...) */
+    $oApiResp = $oApiReq->sendRequest(array_merge(
+      Array(
+        /* Method & version */
+        'METHOD' => 'DoExpressCheckoutPayment',
+        'VERSION' => '204',
+
+        /* Athentification */
+        'USER' => $config['devMode'] ? $config['devApiCred']['user'] : $config['apiCred']['user'],
+        'PWD' => $config['devMode'] ? $config['devApiCred']['pass'] : $config['apiCred']['pass'],
+        'SIGNATURE' => $config['devMode'] ? $config['devApiCred']['signature'] : $config['apiCred']['signature']
+      ), $checkOutInfos));
+
+    if($oApiResp['ACK'] != "Success") {
+      /* Display error page */
+      $errorCode = $oApiResp['L_ERRORCODE0'];
+      $errorMessage = $oApiResp['L_LONGMESSAGE0'];
+
+      print("Oh crap, an error occured ! (" . $errorCode . ": " . $errorMessage . ")");
+      exit;
+    }
+
+    /* Success ! Call FabManager's api and execute flags script(s) if any */
+      // Later
+
+    /* Display success page */
+    print("Amazing Success Page !");
   } else {
-    $oReq = curl_init("https://api-3t.paypal.com/nvp");
+    /* Redirect to main page if not $_GET infos */
+    header("Location: ./");
+    exit;
   }
-
-  /* Setup Request */
-  curl_setopt($oReq, CURLOPT_RETURNTRANSFER, true);
-
-  curl_setopt($oReq, CURLOPT_SSLVERSION, 6);
-  curl_setopt($oReq, CURLOPT_SSL_VERIFYPEER, 1);
-  curl_setopt($oReq, CURLOPT_SSL_VERIFYHOST, 2);
-
-  curl_setopt($oReq, CURLOPT_POST, true);
-  curl_setopt($oReq, CURLOPT_POSTFIELDS, http_build_query($postFields));
-
-  /* Execute Request */
-  $apiResp = curl_exec($oReq);
-  parse_str($apiResp, $checkOutInfos);
-
-  curl_close($oReq);
-
-  $postFields = Array(
-    /* Method & version */
-    'METHOD' => 'DoExpressCheckoutPayment',
-    'VERSION' => '204',
-
-    /* Athentification */
-    'USER' => $config['devMode'] ? $config['devApiCred']['user'] : $config['apiCred']['user'],
-    'PWD' => $config['devMode'] ? $config['devApiCred']['pass'] : $config['apiCred']['pass'],
-    'SIGNATURE' => $config['devMode'] ? $config['devApiCred']['signature'] : $config['apiCred']['signature'],
-
-    'TOKEN' => $_GET['token'],
-    'PAYERID' => $_GET['PayerID'],
-
-    /* Item infos */
-    'L_PAYMENTREQUEST_0_NAME0' => $checkOutInfos['L_PAYMENTREQUEST_0_NAME0'],
-    'L_PAYMENTREQUEST_0_DESC0' => $checkOutInfos['L_PAYMENTREQUEST_0_DESC0'],
-    'L_PAYMENTREQUEST_0_AMT0' => $checkOutInfos['L_PAYMENTREQUEST_0_AMT0'],
-    'L_PAYMENTREQUEST_0_QTY0' => 1,
-
-    'PAYMENTREQUEST_0_ITEMAMT' => $checkOutInfos['PAYMENTREQUEST_0_ITEMAMT'],
-
-    'PAYMENTREQUEST_0_AMT' => $checkOutInfos['PAYMENTREQUEST_0_AMT'],
-    'PAYMENTREQUEST_0_CURRENCYCODE' => $checkOutInfos['PAYMENTREQUEST_0_CURRENCYCODE'],
-    'PAYMENTREQUEST_0_PAYMENTACTION' => 'Sale',
-
-    'PAYMENTREQUEST_0_SELLERPAYPALACCOUNTID' => $checkOutInfos['PAYMENTREQUEST_0_SELLERPAYPALACCOUNTID']
-  );
-
-  /* Create API Request */
-  if($config['devMode']) {
-    $oReq = curl_init("https://api-3t.sandbox.paypal.com/nvp");
-  } else {
-    $oReq = curl_init("https://api-3t.paypal.com/nvp");
-  }
-
-  /* Setup Request */
-  curl_setopt($oReq, CURLOPT_RETURNTRANSFER, true);
-
-  curl_setopt($oReq, CURLOPT_SSLVERSION, 6);
-  curl_setopt($oReq, CURLOPT_SSL_VERIFYPEER, 1);
-  curl_setopt($oReq, CURLOPT_SSL_VERIFYHOST, 2);
-
-  curl_setopt($oReq, CURLOPT_POST, true);
-  curl_setopt($oReq, CURLOPT_POSTFIELDS, http_build_query($postFields));
-
-  /* Execute Request */
-  $apiResp = curl_exec($oReq);
-  parse_str($apiResp, $oApiResp);
-
-  curl_close($oReq);
-
-  print_r($oApiResp);
- ?>
+?>

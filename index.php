@@ -1,17 +1,6 @@
 <?php
+  require("lib/oApi.php");
   $config = require("lib/config.php");
-
-  /* Generate transUniqueID */
-  function NewTransId() {
-    $s = strtoupper(md5(uniqid(rand(),true)));
-    $guidText =
-      substr($s,0,8) . '-' .
-      substr($s,8,4) . '-' .
-      substr($s,12,4). '-' .
-      substr($s,16,4). '-' .
-      substr($s,20);
-    return $guidText;
-  }
 
   /* Check if there is all requiered fields */
   $allOk = true;
@@ -51,10 +40,11 @@
   }*/
 
   if ($allOk) {
-    $transId = NewTransId();
+    $oApiReq = new oApi();
+    $oApiReq->setUrl($config['devMode'] ? "https://api-3t.sandbox.paypal.com/nvp" : "https://api-3t.paypal.com/nvp");
 
-    /* Setup Params */
-    $postFields = Array(
+    /* Initiate payment and get token */
+    $oApiResp = $oApiReq->sendRequest(Array(
       /* Method & version */
       'METHOD' => 'SetExpressCheckout',
       'VERSION' => '204',
@@ -80,46 +70,29 @@
       'ALLOWNOTE' => 0,
 
       /* Misc infos */
-      'RETURNURL' => (isset($_SERVER['HTTPS']) ? 'https://' : 'http://')
+      'RETURNURL' =>  dirname((isset($_SERVER['HTTPS']) ? 'https://' : 'http://')
         . $_SERVER['SERVER_NAME']
-        . dirname($_SERVER['REQUEST_URI'])
+        . $_SERVER['SCRIPT_NAME'])
         . '/checkOut.php',
-      'CANCELURL' => (isset($_SERVER['HTTPS']) ? 'https://' : 'http://')
+      'CANCELURL' =>  dirname((isset($_SERVER['HTTPS']) ? 'https://' : 'http://')
         . $_SERVER['SERVER_NAME']
-        . dirname($_SERVER['REQUEST_URI'])
-        . '/',
+        . $_SERVER['SCRIPT_NAME'])
+        . '',
 
       'PAYMENTREQUEST_0_SELLERPAYPALACCOUNTID' => $config['devMode'] ? $config['devPayEmail'] : $config['payEmail']
-    );
+    ));
 
-    /* Create API Request */
-    if($config['devMode']) {
-      $oReq = curl_init("https://api-3t.sandbox.paypal.com/nvp");
-    } else {
-      $oReq = curl_init("https://api-3t.paypal.com/nvp");
-    }
+    if($oApiResp['ACK'] != "Success") {
+      /* Display error page */
+      $errorCode = $oApiResp['L_ERRORCODE0'];
+      $errorMessage = $oApiResp['L_LONGMESSAGE0'];
 
-    /* Setup Request */
-    curl_setopt($oReq, CURLOPT_RETURNTRANSFER, true);
-
-    curl_setopt($oReq, CURLOPT_SSLVERSION, 6);
-    curl_setopt($oReq, CURLOPT_SSL_VERIFYPEER, 1);
-    curl_setopt($oReq, CURLOPT_SSL_VERIFYHOST, 2);
-
-    curl_setopt($oReq, CURLOPT_POST, true);
-    curl_setopt($oReq, CURLOPT_POSTFIELDS, http_build_query($postFields));
-
-    /* Execute Request */
-    $apiResp = curl_exec($oReq);
-    parse_str($apiResp, $oApiResp);
-
-    curl_close($oReq);
-
-    if($oApiResp['ACK'] != 'Success') {
-      /* An error happened */
-      header("Location: ./");
+      print("Oh crap, an error occured ! (" . $errorCode . ": " . $errorMessage . ")");
       exit;
     }
+
+    /* Success ! Adding entry to database */
+      // Later
 
     /* Redirect client to PayPal */
     header("Location: " . ($config['devMode'] ? "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=" : "https://www.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=") . $oApiResp['TOKEN']);
