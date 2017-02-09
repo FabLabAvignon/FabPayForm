@@ -66,6 +66,14 @@
       'dbPort' => '3306'
     ),
 
+    /* Mail server conf */
+    'mailConf' => Array(
+      'host' => '<mailHost>',
+
+      'user' => '<mailUser>',
+      'pass' => '<mailPass>'
+    ),
+
     /* Dev mode */
     'devMode' => true,
     'devPayEmail' => 'root-facilitator@cak3repo.xyz',
@@ -73,6 +81,6 @@
       'user' => '<apiUser>',
       'pass' => '<apiPass>',
       'signature' => '<apiSignature>'
-    ),
+    )
   );
 ?>
