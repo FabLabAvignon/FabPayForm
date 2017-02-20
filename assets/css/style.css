@@ -120,24 +120,24 @@ p {
   animation: slideFromLeft 1300ms linear both;
 }
 
-.status .success,
+.status .success {
+  background: url("../imgs/check.svg");
+  background-size: 100% 100%;
+
+  width: 128px; height: 128px;
+  display: table;
+  margin: 0 auto;
+}
 .status .failure {
-  text-align: center;
-  font-size: 10em;
-}
+  background: url("../imgs/cross.svg");
+  background-size: 100% 100%;
 
-.status .success::before {
-  content: "☑";
-  color: #16a085;
-}
-
-.status .failure::before {
-  content: "☒";
-  color: #e74c3c;
+  width: 128px; height: 128px;
+  display: table;
+  margin: 0 auto;
 }
 
 /* Generated with Bounce.js. Edit at https://goo.gl/bkOekC */
-
 @-webkit-keyframes slideFromLeft {
   0% { -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -300, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -300, 0, 0, 1); }
   1.3% { -webkit-transform: matrix3d(3.905, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -237.02, 0, 0, 1); transform: matrix3d(3.905, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -237.02, 0, 0, 1); }

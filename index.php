@@ -110,11 +110,12 @@
 
     <!-- Stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    
     <!-- Scripts -->
     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script defer src="js/main.js"></script>
+    <script defer src="assets/js/main.js"></script>
   </head>
   <body>
     <div class="container">

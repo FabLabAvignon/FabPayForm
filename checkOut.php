@@ -36,20 +36,68 @@
         'SIGNATURE' => $config['devMode'] ? $config['devApiCred']['signature'] : $config['apiCred']['signature']
       ), $checkOutInfos));
 
+    /* Prepare page */
+    print("
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <!-- Meta -->
+        <meta charset=\"utf-8\">
+
+        <!-- Title -->
+        <title>Devenez adhérent</title>
+
+        <!-- Stylesheets -->
+        <link href=\"https://fonts.googleapis.com/css?family=Open+Sans\" rel=\"stylesheet\">
+        <link rel=\"stylesheet\" href=\"assets/css/reset.css\">
+        <link rel=\"stylesheet\" href=\"assets/css/style.css\">
+      </head>
+      <body>");
+
     if($oApiResp['ACK'] != "Success") {
       /* Display error page */
       $errorCode = $oApiResp['L_ERRORCODE0'];
       $errorMessage = $oApiResp['L_LONGMESSAGE0'];
 
-      print("Oh crap, an error occured ! (" . $errorCode . ": " . $errorMessage . ")");
+      //print("Oh crap, an error occured ! (" . $errorCode . ": " . $errorMessage . ")");
+      /* Display error page */
+      print("
+          <div class=\"container\">
+            <h1>Oops, une erreur s'est produite !</h1>
+            <br>
+            <p>
+              Nous sommes désolés, mais un erreur s'est produite.. Nous mettons tout en ordre pour résoudre votre problème !<br>
+              L'erreur suivante s'est produite : (" . $errorCode . ": " . $errorMessage . ")
+            </p>
+
+            <div class=\"status\">
+              <div class=\"failure\"></div>
+            </div>
+          </div>");
       exit;
+    } else {
+      /* Success ! Call FabManager's api and execute flags script(s) if any */
+        // Later
+
+      /* Display success page */
+      print("
+          <div class=\"container\">
+            <h1>Et voilà, c'est fait !</h1>
+            <br>
+            <p>
+              Toute nos félicitations, vous êtes désormais l'un de nos membres. Bienvenue à Avilab, cher maker!
+            </p>
+
+            <div class=\"status\">
+              <div class=\"success\"></div>
+            </div>
+          </div>");
+      print_r($oApiResp);
     }
-
-    /* Success ! Call FabManager's api and execute flags script(s) if any */
-      // Later
-
-    /* Display success page */
-    print("Amazing Success Page !");
+    /* End page */
+    print("
+        </body>
+      </html>");
   } else {
     /* Redirect to main page if not $_GET infos */
     header("Location: ./");
