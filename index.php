@@ -112,7 +112,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    
+
     <!-- Scripts -->
     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script defer src="assets/js/main.js"></script>
@@ -155,7 +155,9 @@
           <?php
             foreach($config['payOptions'] as $key => $infos) {
               if ($key != 'currencyCode') {
-                echo "<input type=\"radio\" name=\"membershipType\" value=\"" . $key . "\">" . $key . " - " . $infos[0] . " " . $config['payOptions']['currencyCode'] . "</option><br>";
+                echo "<input type=\"radio\" name=\"membershipType\" value=\"" .
+                      $key . "\">" . $key . " - " . $infos[0] . " " .
+                      $config['payOptions']['currencyCode'] . "</option><br>";
               }
             }
           ?>
