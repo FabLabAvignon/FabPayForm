@@ -139,15 +139,15 @@
         </div>
         <div class="input-block">
           <label for="lastName">Nom</label><br>
-          <input type="text" name="lastName" placeholder="Votre nom de famille">
+          <input type="text" id="lastName" name="lastName" placeholder="Votre nom de famille">
         </div>
         <div class="input-block">
           <label for="firstName">Prénom</label><br>
-          <input type="text" name="firstName" placeholder="Votre prénom">
+          <input type="text" id="firstName" name="firstName" placeholder="Votre prénom">
         </div>
         <div class="input-block">
           <label for="emailAddr">Email</label><br>
-          <input type="email" name="emailAddr" placeholder="Votre email">
+          <input type="email" id="emailAddr" name="emailAddr" placeholder="Votre email">
         </div>
 
         <div class="input-block">
@@ -172,27 +172,27 @@
         <!-- Optionals  -->
         <div class="input-block">
           <label for="birthDate">Date de naissance</label><br>
-          <input type="date" name="birthDate" placeholder="jj/mm/aaaa">
+          <input type="date" id="birthDate" name="birthDate" placeholder="jj/mm/aaaa">
         </div>
         <div class="input-block">
           <label for="address">Adresse</label><br>
-          <input type="text" name="address" placeholder="Votre adresse">
+          <input type="text" id="address" name="address" placeholder="Votre adresse">
         </div>
         <div class="input-block">
           <label for="city">Ville</label><br>
-          <input type="text" name="city" placeholder="Votre ville">
+          <input type="text" id="city" name="city" placeholder="Votre ville">
         </div>
         <div class="input-block">
           <label for="postCode">Code postal</label><br>
-          <input type="text" name="postCode" placeholder="Votre code postal">
+          <input type="text" id="postCode" name="postCode" placeholder="Votre code postal">
         </div>
         <div class="input-block">
           <label for="country">Pays</label><br>
-          <input type="text" name="country" placeholder="Votre pays">
+          <input type="text" id="country" name="country" placeholder="Votre pays">
         </div>
         <div class="input-block">
           <label for="phoneNum">Téléphone</label><br>
-          <input type="text" name="phoneNum" placeholder="Votre téléphone">
+          <input type="text" id="phoneNum" name="phoneNum" placeholder="Votre téléphone">
         </div>
 
         <button type="submit">Adhérer</button>
