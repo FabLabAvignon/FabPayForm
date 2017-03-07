@@ -172,7 +172,7 @@
         <!-- Optionals  -->
         <div class="input-block">
           <label for="birthDate">Date de naissance</label><br>
-          <input type="date" id="birthDate" name="birthDate" placeholder="jj/mm/aaaa">
+          <input type="text" id="birthDate" name="birthDate" placeholder="jj/mm/aaaa">
         </div>
         <div class="input-block">
           <label for="address">Adresse</label><br>
