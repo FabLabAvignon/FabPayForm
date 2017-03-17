@@ -1,0 +1,15 @@
+{
+    "env": {
+        "browser": true,
+        "jquery": true
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+        "indent": ["error", 2],
+        "quotes": ["error", "single"],
+        "semi": ["error", "always"],
+        "no-console": "off",
+        "eqeqeq": "error",
+        "no-else-return": "error"
+    }
+}
