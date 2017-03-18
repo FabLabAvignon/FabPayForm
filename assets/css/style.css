@@ -137,6 +137,27 @@ p {
   margin: 0 auto;
 }
 
+.submit-button {
+  text-align: center;
+}
+
+.submit-button > button {
+  text-align: center;
+  margin: 15px;
+  margin-right: 0;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 15px;
+  border: 1px solid black;
+  background-color: black;
+  color: white;
+}
+
+.submit-button > button:hover {
+  background-color: white;
+  color: black;
+}
+
 /* Generated with Bounce.js. Edit at https://goo.gl/bkOekC */
 @-webkit-keyframes slideFromLeft {
   0% { -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -300, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -300, 0, 0, 1); }
