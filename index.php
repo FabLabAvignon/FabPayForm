@@ -227,7 +227,9 @@
           <input type="text" id="phoneNum" name="phoneNum" placeholder="Ex : 0622984676">
         </div>
 
-        <button type="submit">Adhérer</button>
+        <div class="submit-button">
+          <button type="submit">Adhérer</button>
+        </div>
       </form>
     </div>
   </body>
