@@ -148,6 +148,7 @@
     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script defer src="assets/js/main.js"></script>
   </head>
+
   <body>
     <div class="container">
       <h1>Oh, alors vous voulez devenir un maker, hein ?</h1>
@@ -170,15 +171,15 @@
         </div>
         <div class="input-block">
           <label for="lastName">Nom</label><br>
-          <input type="text" id="lastName" name="lastName" placeholder="Votre nom de famille">
+          <input type="text" id="lastName" name="lastName" placeholder="Ex : Gershenfeld">
         </div>
         <div class="input-block">
           <label for="firstName">Prénom</label><br>
-          <input type="text" id="firstName" name="firstName" placeholder="Votre prénom">
+          <input type="text" id="firstName" name="firstName" placeholder="Ex : Neil">
         </div>
         <div class="input-block">
           <label for="emailAddr">Email</label><br>
-          <input type="email" id="emailAddr" name="emailAddr" placeholder="Votre email">
+          <input type="email" id="emailAddr" name="emailAddr" placeholder="Ex : neil.gershenfeld@gmail.com">
         </div>
 
         <div class="input-block">
@@ -207,23 +208,23 @@
         </div>
         <div class="input-block">
           <label for="address">Adresse</label><br>
-          <input type="text" id="address" name="address" placeholder="Votre adresse">
+          <input type="text" id="address" name="address" placeholder="Ex : 14 bis Impasse Lescure,">
         </div>
         <div class="input-block">
           <label for="city">Ville</label><br>
-          <input type="text" id="city" name="city" placeholder="Votre ville">
+          <input type="text" id="city" name="city" placeholder="Ex : Avignon">
         </div>
         <div class="input-block">
           <label for="postCode">Code postal</label><br>
-          <input type="text" id="postCode" name="postCode" placeholder="Votre code postal">
+          <input type="text" id="postCode" name="postCode" placeholder="Ex : 84000">
         </div>
         <div class="input-block">
           <label for="country">Pays</label><br>
-          <input type="text" id="country" name="country" placeholder="Votre pays">
+          <input type="text" id="country" name="country" placeholder="Ex : France">
         </div>
         <div class="input-block">
           <label for="phoneNum">Téléphone</label><br>
-          <input type="text" id="phoneNum" name="phoneNum" placeholder="Votre téléphone">
+          <input type="text" id="phoneNum" name="phoneNum" placeholder="Ex : 0622984676">
         </div>
 
         <button type="submit">Adhérer</button>
