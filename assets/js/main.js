@@ -1,7 +1,3 @@
-$('.input-error').focus(function() {
-  $(this).removeClass('input-error');
-});
-
 /**
  * Containing class and regex.
  */
@@ -26,13 +22,13 @@ var param = {
      * - ' ', '-', '_'.
      * @type {RegExp}
      */
-    notEmpty: /^[a-z0-9._-\s]+$/,
+    notEmpty: /^.+$/,
 
     /**
-     * Three or more char. Case insensitive. Accept only letters, '-' and '_'.
+     * Three or more char. Case insensitive. Accept all char.
      * @type {RegExp}
      */
-    name: /^[a-z\-]{3,}$/i,
+    name: /^.{3,}$/i,
 
     /**
      * For mail. Examples :
@@ -115,7 +111,7 @@ var fields = {
     reg: param.reg.notEmpty,
   },
 
-  phoneNuam: {
+  phoneNum: {
     reg: param.reg.phone,
   },
 };
@@ -129,7 +125,7 @@ var form = {
    */
   init: function() {
     Object.keys(fields).forEach(function (field) {
-      fields[field].dom = document.getElementById(field);      
+      fields[field].dom = document.getElementById(field);
       if (fields[field].dom) {
         fields[field].dom.addEventListener('blur', form.controller);
       } else {
