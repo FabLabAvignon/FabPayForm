@@ -77,7 +77,8 @@
       exit;
     } else {
       /* Success ! Call FabManager's api and execute flags script(s) if any */
-        // Later
+      $FabManagerAPI = new oApi();
+      $FabManagerAPI->setUrl($config['fabApiUrl']);
 
       /* Display success page */
       print("
@@ -92,7 +93,6 @@
               <div class=\"success\"></div>
             </div>
           </div>");
-      //print_r($oApiResp);
     }
     /* End page */
     print("

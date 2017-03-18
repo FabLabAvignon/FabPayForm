@@ -23,11 +23,6 @@
        * -> https://developer.paypal.com/docs/classic/api/currency_codes/
        */
       'currencyCode' => 'EUR',
-      '1 Mois - Premium' => Array(
-        '20.00',
-        '1',
-        'z'
-      ),
       '1 An - Etudiant' => Array(
         '60.00',
         '12',
@@ -53,8 +48,9 @@
       'signature' => '<apiSignature>'
     ),
 
-    /* FabManager API Key */
-    'apiKey' => '<apiKey>',
+    /* FabManager API Key & API Url */
+    'fabApiKey' => '<apiKey>',
+    'fabApiUrl' => '<apiUrl>',
 
     /* Database infos */
     'dataBaseConf' => Array(

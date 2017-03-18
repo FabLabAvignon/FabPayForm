@@ -1,13 +1,14 @@
 <?php
-  require("lib/oApi.php");
   $config = require("lib/config.php");
+  require("lib/oApi.php");
+  require("lib/oDb.php");
 
   /* Check if there is all requiered fields */
   $allOk = true;
   if (!count($_POST)) {
     $allOk = false;
 
-  }/* elseif (empty($_POST['gender'])) {
+  } elseif (empty($_POST['gender'])) {
     $allOk = false;
 
   } elseif (empty($_POST['lastName'])) {
@@ -19,22 +20,25 @@
   } elseif (empty($_POST['emailAddr'])) {
     $allOk = false;
 
-  } */elseif (empty($_POST['membershipType'])) {
+  } elseif (empty($_POST['membershipType'])) {
     $allOk = false;
 
-  }/* elseif ($_POST['']) {
+  }/* elseif ($_POST['birthDate']) {
     $allOk = false;
 
-  } elseif ($_POST['']) {
+  } elseif ($_POST['address']) {
     $allOk = false;
 
-  } elseif ($_POST['']) {
+  } elseif ($_POST['city']) {
     $allOk = false;
 
-  } elseif ($_POST['']) {
+  } elseif ($_POST['postCode']) {
     $allOk = false;
 
-  } elseif ($_POST['']) {
+  } elseif ($_POST['country']) {
+    $allOk = false;
+
+  } elseif ($_POST['phoneNumber']) {
     $allOk = false;
 
   }*/
@@ -92,7 +96,34 @@
     }
 
     /* Success ! Adding entry to database */
-      // Later
+    $oReq = $oDb->prepare('INSERT INTO `fab-pay-form`
+      (`paymentId`,
+       `gender`,
+       `lastName`,
+       `firstName`,
+       `emailAddr`,
+       `membershipType`,
+       `birthDate`,
+       `address`,
+       `city`,
+       `postCode`,
+       `country`,
+       `phoneNumber`)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);');
+    $oReq->execute(Array(
+      $oApiResp['TOKEN'],
+      $_POST['gender'],
+      $_POST['lastName'],
+      $_POST['firstName'],
+      $_POST['emailAddr'],
+      $_POST['membershipType'],
+      $_POST['birthDate'],
+      $_POST['address'],
+      $_POST['city'],
+      $_POST['postCode'],
+      $_POST['country'],
+      $_POST['phoneNumber']
+    ));
 
     /* Redirect client to PayPal */
     header("Location: " . ($config['devMode'] ? "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=" : "https://www.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=") . $oApiResp['TOKEN']);
