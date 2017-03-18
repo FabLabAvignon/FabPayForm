@@ -154,6 +154,7 @@ p {
 }
 
 .submit-button > button:hover {
+  cursor: pointer;
   background-color: white;
   color: black;
 }
