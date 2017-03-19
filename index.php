@@ -3,45 +3,76 @@
   require("lib/oApi.php");
   require("lib/oDb.php");
 
-  /* Check if there is all requiered fields */
+  /* Check if there is all required fields */
   $allOk = true;
-  if (!count($_POST)) {
-    $allOk = false;
 
-  } elseif (empty($_POST['gender'])) {
-    $allOk = false;
+  $checkFields = Array(
+    'gender' => Array(
+      'required' => true,
+      'regex' => ''
+    ),
+    'lastName' => Array(
+      'required' => true,
+      'regex' => '/^.{3,}$/i'
+    ),
+    'firstName' => Array(
+      'required' => true,
+      'regex' => '/^.{3,}$/i'
+    ),
+    'emailAddr' => Array(
+      'required' => true,
+      'regex' => '/^[a-z0-9._%-]+@[a-z0-9.-]+.[a-z]{2,4}$/i'
+    ),
+    'membershipType' => Array(
+      'required' => true,
+      'regex' => ''
+    ),
+    'birthDate' => Array(
+      'required' => false,
+      'regex' => '/^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/'
+    ),
+    'address' => Array(
+      'required' => false,
+      'regex' => ''
+    ),
+    'city' => Array(
+      'required' => false,
+      'regex' => ''
+    ),
+    'postCode' => Array(
+      'required' => false,
+      'regex' => '/^[0-9]{5}$/'
+    ),
+    'country' => Array(
+      'required' => false,
+      'regex' => ''
+    ),
+    'phoneNumber' => Array(
+      'required' => false,
+      'regex' => '/^[0-9]{10}$/'
+    )
+  );
 
-  } elseif (empty($_POST['lastName'])) {
-    $allOk = false;
+  foreach ($checkFields as $fieldName => $fieldParams) {
+    /* If the field is required but empty */
+    if(empty($_POST[$fieldName]) && $fieldParams['required']) {
+      $allOk = false;
+      break;
+    }
 
-  } elseif (empty($_POST['firstName'])) {
-    $allOk = false;
+    /* If the field is non-empty */
+    if(!empty($_POST[$fieldName])) {
+      /* If no regex for field */
+      if (empty($fieldParams['regex']))
+        continue;
 
-  } elseif (empty($_POST['emailAddr'])) {
-    $allOk = false;
-
-  } elseif (empty($_POST['membershipType'])) {
-    $allOk = false;
-
-  }/* elseif ($_POST['birthDate']) {
-    $allOk = false;
-
-  } elseif ($_POST['address']) {
-    $allOk = false;
-
-  } elseif ($_POST['city']) {
-    $allOk = false;
-
-  } elseif ($_POST['postCode']) {
-    $allOk = false;
-
-  } elseif ($_POST['country']) {
-    $allOk = false;
-
-  } elseif ($_POST['phoneNumber']) {
-    $allOk = false;
-
-  }*/
+      /* Check regex */
+      if(!preg_match($fieldParams['regex'], $_POST[$fieldName])) {
+        $allOk = false;
+        break;
+      }
+    }
+  }
 
   if ($allOk) {
     $oApiReq = new oApi();
@@ -156,9 +187,9 @@
       <p>Vous y êtes presque ! Pour devenir adhérent, remplissez le formulaire
       ci dessous...</p>
 
-      <form action="" method="POST">
+      <form id="memberForm" action="" method="POST">
 
-        <!-- Requiered  -->
+        <!-- Required -->
         <div class="sticker">
           <span class="text">Le minimum syndical...</span>
           <div class="arrow-right"></div>
@@ -201,7 +232,7 @@
         </div>
         <p class="hint">Les informations ci-dessous sont facultatives.</p>
 
-        <!-- Optionals  -->
+        <!-- Optionals -->
         <div class="input-block">
           <label for="birthDate">Date de naissance</label><br>
           <input type="text" id="birthDate" name="birthDate" placeholder="jj/mm/aaaa">
@@ -228,7 +259,7 @@
         </div>
 
         <div class="submit-button">
-          <button type="submit">Adhérer</button>
+          <a href="javascript:form.submit();">Adhérer</button>
         </div>
       </form>
     </div>

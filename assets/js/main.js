@@ -120,6 +120,8 @@ var fields = {
  * Form object - Main app.
  */
 var form = {
+  dom: document.getElementById('memberForm'),
+
   /**
    * Set all listeners
    */
@@ -128,6 +130,10 @@ var form = {
       fields[field].dom = document.getElementById(field);
       if (fields[field].dom) {
         fields[field].dom.addEventListener('blur', form.controller);
+
+        /* Perform check on load */
+        fields[field].dom.onchange = form.controller;
+        fields[field].dom.onchange();
       } else {
         console.error('Error : field named "' + field + '" does not match \
         with any DOM\'s id.');
@@ -193,6 +199,20 @@ var form = {
     field.classList.remove(param.class.error);
     field.classList.remove(param.class.valid);
   },
+
+  /**
+   * Check if form is valid and submit if so.
+   */
+  submit: function() {
+    noError = true;
+    Object.keys(fields).forEach(function (field) {
+      // Perform error count check
+    });
+
+    /* If no error, submit */
+    if(noError)
+      form.dom.submit();
+  }
 };
 
 document.addEventListener('DOMContentLoaded', form.init);
