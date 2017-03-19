@@ -187,7 +187,7 @@
       <p>Vous y êtes presque ! Pour devenir adhérent, remplissez le formulaire
       ci dessous...</p>
 
-      <form id="memberForm" action="" method="POST">
+      <form id="register-form" action="" method="POST">
 
         <!-- Required -->
         <div class="sticker">
@@ -259,7 +259,7 @@
         </div>
 
         <div class="submit-button">
-          <a href="javascript:form.submit();">Adhérer</button>
+          <button type="submit">Adhérer</button>
         </div>
       </form>
     </div>

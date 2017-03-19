@@ -120,24 +120,23 @@ var fields = {
  * Form object - Main app.
  */
 var form = {
-  dom: document.getElementById('memberForm'),
-
   /**
    * Set all listeners
    */
   init: function() {
+    // Init all fields listeners
     Object.keys(fields).forEach(function (field) {
       fields[field].dom = document.getElementById(field);
       if (fields[field].dom) {
         fields[field].dom.addEventListener('blur', form.controller);
-
-        /* Perform check on load */
-        fields[field].dom.onchange = form.controller;
-        fields[field].dom.onchange();
       } else {
         console.error('Error : field named "' + field + '" does not match \
         with any DOM\'s id.');
       }
+
+      // Init form submit listener
+      form.registerForm = document.getElementById('register-form');
+      form.registerForm.addEventListener('submit', form.submit);
     });
   },
 
@@ -201,17 +200,42 @@ var form = {
   },
 
   /**
-   * Check if form is valid and submit if so.
+   * Check if form can be submit
+   * This is shit code.
    */
-  submit: function() {
-    noError = true;
-    Object.keys(fields).forEach(function (field) {
-      // Perform error count check
-    });
+  submit: function(e) {
+    e.preventDefault();
 
-    /* If no error, submit */
-    if(noError)
-      form.dom.submit();
+    if (document.querySelector('.'+param.class.error)) return;
+
+    if(fields.lastName.dom.classList.contains(param.class.valid)
+    && fields.firstName.dom.classList.contains(param.class.valid)
+    && fields.emailAddr.dom.classList.contains(param.class.valid)
+    ) {
+      var checked = false;
+      var inputs = document.querySelectorAll('input[name=gender]');
+      for (let i=0; i<inputs.length; i++) {
+        if (inputs[i].checked) {
+          checked = true;
+          break;
+        }
+      }
+
+      if ( ! checked) return;
+
+      checked = false;
+      inputs = document.querySelectorAll('input[name=membershipType]');
+      for (let i=0; i<inputs.length; i++) {
+        if (inputs[i].checked) {
+          checked = true;
+          break;
+        }
+      }
+
+      if ( ! checked) return;
+
+      form.registerForm.submit();
+    }
   }
 };
 

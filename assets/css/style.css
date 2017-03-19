@@ -141,10 +141,9 @@ p {
   text-align: center;
 }
 
-.submit-button > a {
+.submit-button > button {
   text-align: center;
   text-decoration: none;
-  display: block;
   margin: 15px;
   margin-right: 0;
   text-transform: uppercase;
@@ -157,7 +156,7 @@ p {
   transition: .2s;
 }
 
-.submit-button > a:hover {
+.submit-button > button:hover {
   cursor: pointer;
   background-color: white;
   color: black;
