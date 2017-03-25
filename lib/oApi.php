@@ -7,7 +7,7 @@
       $this->apiUrl = $apiUrl;
     }
 
-    function sendRequest($paramArray) {
+    function sendRequest($paramArray, $jsonEncode=false) {
       /* Init cUrl request */
       $oReq = curl_init($this->apiUrl);
 
@@ -19,7 +19,11 @@
       curl_setopt($oReq, CURLOPT_SSL_VERIFYHOST, 2);
 
       curl_setopt($oReq, CURLOPT_POST, true);
-      curl_setopt($oReq, CURLOPT_POSTFIELDS, http_build_query($paramArray));
+      if ($jsonEncode) {
+        curl_setopt($oReq, CURLOPT_POSTFIELDS, json_encode($paramArray));
+      } else {
+        curl_setopt($oReq, CURLOPT_POSTFIELDS, http_build_query($paramArray));
+      }
 
       /* Execute Request */
       $apiResp = curl_exec($oReq);

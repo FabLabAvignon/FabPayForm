@@ -1,6 +1,7 @@
 <?php
-  require("lib/oApi.php");
   $config = require("lib/config.php");
+  require("lib/oApi.php");
+  require("lib/oDb.php");
 
   /* Check if we get PayPal infos */
   if(isset($_GET['token']) && isset($_GET['PayerID'])) {
@@ -59,7 +60,6 @@
       $errorCode = $oApiResp['L_ERRORCODE0'];
       $errorMessage = $oApiResp['L_LONGMESSAGE0'];
 
-      //print("Oh crap, an error occured ! (" . $errorCode . ": " . $errorMessage . ")");
       /* Display error page */
       print("
           <div class=\"container\">
@@ -77,8 +77,33 @@
       exit;
     } else {
       /* Success ! Call FabManager's api and execute flags script(s) if any */
+      $oReq = $oDb->prepare('SELECT * FROM `fab-pay-form` WHERE `paymentId` = ?');
+      $oReq->execute(Array($oApiResp['TOKEN']));
+
+      $serverAnswer = $oReq->fetch();
+
+      /* Send API request */
       $FabManagerAPI = new oApi();
-      $FabManagerAPI->setUrl($config['fabApiUrl']);
+      $FabManagerAPI->setUrl($config['fabApiUrl'] . '/user/create_account');
+      $FabManagerReq = Array(
+        'key' => $config['fabApiKey'],
+
+        'gender' => ($serverAnswer['gender'] ? 'homme' : 'femme'),
+        'familyName' => $serverAnswer['lastName'],
+        'firstName' => $serverAnswer['firstName'],
+        'email' => $serverAnswer['emailAddr'],
+        'montant' => $config['payOptions'][$serverAnswer['membershipType']][0],
+
+        'birthday' => date("d/m/Y", strtotime($serverAnswer['birthDate'])),
+        'address' => $serverAnswer['address'],
+        'city' => $serverAnswer['city'],
+        'postCode' => $serverAnswer['postCode'],
+        'country' => $serverAnswer['country'],
+        'tel' => $serverAnswer['phoneNumber']
+      );
+      $FabManagerAPI->sendRequest($FabManagerReq, true);
+
+        // Exec flags, later //
 
       /* Display success page */
       print("

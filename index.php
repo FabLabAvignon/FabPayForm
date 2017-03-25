@@ -148,12 +148,12 @@
       $_POST['firstName'],
       $_POST['emailAddr'],
       $_POST['membershipType'],
-      $_POST['birthDate'],
+      date("Y-m-d", strtotime($_POST['birthDate'])),
       $_POST['address'],
       $_POST['city'],
       $_POST['postCode'],
       $_POST['country'],
-      $_POST['phoneNumber']
+      $_POST['phoneNum']
     ));
 
     /* Redirect client to PayPal */
@@ -258,9 +258,7 @@
           <input type="text" id="phoneNum" name="phoneNum" placeholder="Ex : 0622984676">
         </div>
 
-        <div class="submit-button">
-          <button type="submit">Adhérer</button>
-        </div>
+        <button class="submit-button<?php if($config['devMode']) echo ' devmode'; ?>" type="submit">Adhérer<?php if($config['devMode']) echo '<br>(Le \'dev mode\' est activé, merci de le descativer dans la config.)'; ?></button>
       </form>
     </div>
   </body>
