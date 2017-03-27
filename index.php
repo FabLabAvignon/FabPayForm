@@ -1,7 +1,10 @@
 <?php
-  $config = require("lib/config.php");
-  require("lib/oApi.php");
-  require("lib/oDb.php");
+  $config = require(dirname(__FILE__) . "/conf/config.php");
+  require(dirname(__FILE__) . "/lib/oApi.php");
+  require(dirname(__FILE__) . "/lib/oDb.php");
+  require(dirname(__FILE__) . "/lib/oLog.php");
+
+  $oLog = new oLog();
 
   /* Check if there is all required fields */
   $allOk = true;
@@ -75,6 +78,9 @@
   }
 
   if ($allOk) {
+    $oLog->infoLog("Validated all form inputs");
+
+    $oLog->infoLog("Sending API request to PayPal..");
     $oApiReq = new oApi();
     $oApiReq->setUrl($config['devMode'] ? "https://api-3t.sandbox.paypal.com/nvp" : "https://api-3t.paypal.com/nvp");
 
@@ -118,6 +124,8 @@
     ));
 
     if($oApiResp['ACK'] != "Success") {
+      $oLog->errorLog("    Fail. (" . $errorCode . ": " . $errorMessage . ")");
+
       /* Display error page */
       $errorCode = $oApiResp['L_ERRORCODE0'];
       $errorMessage = $oApiResp['L_LONGMESSAGE0'];
@@ -125,6 +133,7 @@
       print("Oh crap, an error occured ! (" . $errorCode . ": " . $errorMessage . ")");
       exit;
     }
+    $oLog->infoLog("    Success.");
 
     /* Success ! Adding entry to database */
     $oReq = $oDb->prepare('INSERT INTO `fab-pay-form`
@@ -157,6 +166,7 @@
     ));
 
     /* Redirect client to PayPal */
+    $oLog->infoLog("Redirecting to PayPal gateway");
     header("Location: " . ($config['devMode'] ? "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=" : "https://www.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=") . $oApiResp['TOKEN']);
     exit;
   }
@@ -258,7 +268,7 @@
           <input type="text" id="phoneNum" name="phoneNum" placeholder="Ex : 0622984676">
         </div>
 
-        <button class="submit-button<?php if($config['devMode']) echo ' devmode'; ?>" type="submit">Adhérer<?php if($config['devMode']) echo '<br>(Le \'dev mode\' est activé, merci de le descativer dans la config.)'; ?></button>
+        <button class="submit-button<?php if($config['devMode']) echo ' devmode'; ?>" type="submit">Adhérer<?php if($config['devMode']) echo '<br>(Le site est en cours de maintenance, merci de votre conprehension.)'; ?></button>
       </form>
     </div>
   </body>

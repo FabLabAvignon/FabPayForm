@@ -1,12 +1,17 @@
 <?php
-  $config = require("lib/config.php");
-  require("lib/oApi.php");
-  require("lib/oDb.php");
+  $config = require(dirname(__FILE__) . "/conf/config.php");
+  require(dirname(__FILE__) . "/lib/oApi.php");
+  require(dirname(__FILE__) . "/lib/oDb.php");
+  require(dirname(__FILE__) . "/lib/oLog.php");
+
+  $oLog = new oLog();
 
   /* Check if we get PayPal infos */
   if(isset($_GET['token']) && isset($_GET['PayerID'])) {
+    $oLog->infoLog("Incoming Payment !");
     $payToken = $_GET['token'];
 
+    $oLog->infoLog("Validating payment..");
     $oApiReq = new oApi();
     $oApiReq->setUrl($config['devMode'] ? "https://api-3t.sandbox.paypal.com/nvp" : "https://api-3t.paypal.com/nvp");
 
@@ -60,6 +65,8 @@
       $errorCode = $oApiResp['L_ERRORCODE0'];
       $errorMessage = $oApiResp['L_LONGMESSAGE0'];
 
+      $oLog->errorLog("    Fail. (" . $errorCode . ": " . $errorMessage . ")");
+
       /* Display error page */
       print("
           <div class=\"container\">
@@ -76,13 +83,16 @@
           </div>");
       exit;
     } else {
+      $oLog->infoLog("    Success.");
+
       /* Success ! Call FabManager's api and execute flags script(s) if any */
       $oReq = $oDb->prepare('SELECT * FROM `fab-pay-form` WHERE `paymentId` = ?');
       $oReq->execute(Array($oApiResp['TOKEN']));
 
       $serverAnswer = $oReq->fetch();
 
-      /* Send API request */
+      $oLog->infoLog("Adding client to FabManager with API..");
+      /* Add client */
       $FabManagerAPI = new oApi();
       $FabManagerAPI->setUrl($config['fabApiUrl'] . '/user/create_account');
       $FabManagerReq = Array(
@@ -93,6 +103,7 @@
         'firstName' => $serverAnswer['firstName'],
         'email' => $serverAnswer['emailAddr'],
         'montant' => $config['payOptions'][$serverAnswer['membershipType']][0],
+        'frequence' => $config['payOptions'][$serverAnswer['membershipType']][1],
 
         'birthday' => date("d/m/Y", strtotime($serverAnswer['birthDate'])),
         'address' => $serverAnswer['address'],
@@ -101,9 +112,37 @@
         'country' => $serverAnswer['country'],
         'tel' => $serverAnswer['phoneNumber']
       );
-      $FabManagerAPI->sendRequest($FabManagerReq, true);
+      $apiAnsw = $FabManagerAPI->sendRequest($FabManagerReq, true);
 
-        // Exec flags, later //
+      /* Log error if any */
+      if (!isset($apiAnsw['success'])) {
+        $oLog->infoLog("    Fail. (" . print_r($apiAnsw, true) . ")");
+      } else {
+        $oLog->infoLog("    Success.");
+      }
+
+      $oLog->infoLog("Adding transaction to FabManager with API..");
+      /* Add transaction */
+      $FabManagerAPI->setUrl($config['fabApiUrl'] . '/cotisation/add');
+      $FabManagerReq = Array(
+        'key' => $config['fabApiKey'],
+
+        'user_id' => $apiAnsw['user_id'],
+        'price' => $config['payOptions'][$serverAnswer['membershipType']][0],
+        'duration' => $config['payOptions'][$serverAnswer['membershipType']][1],
+      );
+      $apiAnsw = $FabManagerAPI->sendRequest($FabManagerReq, true);
+
+      /* Log error if any */
+      if (!isset($apiAnsw['success'])) {
+        $oLog->infoLog("    Fail. (" . print_r($apiAnsw, true) . ")");
+      } else {
+        $oLog->infoLog("    Success.");
+      }
+
+      // Exec flags, later //
+
+      // Send mail, later //
 
       /* Display success page */
       print("
@@ -111,7 +150,7 @@
             <h1>Et voilà, c'est fait !</h1>
             <br>
             <p>
-              Toute nos félicitations, vous êtes désormais l'un de nos membres. Bienvenue à Avilab, cher maker!
+              Toute nos félicitations, vous êtes désormais l'un de nos membres. Bienvenue à Avilab, cher maker !
             </p>
 
             <div class=\"status\">

@@ -36,7 +36,7 @@
     ),
 
     /* PayPal pay email */
-    'payEmail' => '<yourPayPalEmail>',
+    'payEmail' => 'paypal@avilab.fr',
 
     /* API credentials for PayPal requests,
      * to generate them, follow this guide :
@@ -50,14 +50,13 @@
 
     /* FabManager API Key & API Url */
     'fabApiKey' => '<apiKey>',
-    'fabApiUrl' => '<apiUrl>',
+    'fabApiUrl' => '<apiUrl>', // E.g. https://fabmanager.yourdomain.tld/api
 
     /* Database infos */
     'dataBaseConf' => Array(
       'dbUser' => '<userName>',
       'dbPass' => '<passPhrase>',
       'dbName' => '<dbName>',
-
       'dbHost' => '127.0.0.1',
       'dbPort' => '3306'
     ),
@@ -65,14 +64,14 @@
     /* Mail server conf */
     'mailConf' => Array(
       'host' => '<mailHost>',
-
       'user' => '<mailUser>',
       'pass' => '<mailPass>'
     ),
 
     /* Dev mode */
     'devMode' => true,
-    'devPayEmail' => 'root-facilitator@cak3repo.xyz',
+    'logFile' => 'conf/log.log',
+    'devPayEmail' => '<devPayEmail>',
     'devApiCred' => Array(
       'user' => '<apiUser>',
       'pass' => '<apiPass>',
