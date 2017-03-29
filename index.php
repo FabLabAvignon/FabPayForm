@@ -157,7 +157,7 @@
       $_POST['firstName'],
       $_POST['emailAddr'],
       $_POST['membershipType'],
-      date("Y-m-d", strtotime($_POST['birthDate'])),
+      $_POST['birthDate'],
       $_POST['address'],
       $_POST['city'],
       $_POST['postCode'],

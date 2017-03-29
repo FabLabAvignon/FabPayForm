@@ -5,7 +5,7 @@ CREATE TABLE `fab-pay-form` (
   `firstName` varchar(64) NOT NULL,
   `emailAddr` varchar(64) NOT NULL,
   `membershipType` int(11) NOT NULL COMMENT 'Abstract value given by the page to design the membership type to match config.',
-  `birthDate` date NOT NULL,
+  `birthDate` char(10) NOT NULL,
   `address` varchar(128) NOT NULL,
   `city` varchar(64) NOT NULL,
   `postCode` int(11) NOT NULL,

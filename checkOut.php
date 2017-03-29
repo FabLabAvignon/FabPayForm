@@ -105,7 +105,7 @@
         'montant' => $config['payOptions'][$serverAnswer['membershipType']][0],
         'frequence' => $config['payOptions'][$serverAnswer['membershipType']][1],
 
-        'birthday' => date("d/m/Y", strtotime($serverAnswer['birthDate'])),
+        'birthday' => $serverAnswer['birthDate'],
         'address' => $serverAnswer['address'],
         'city' => $serverAnswer['city'],
         'postCode' => $serverAnswer['postCode'],
