@@ -105,7 +105,10 @@ p {
   margin-top: 10px;
 }
 
+/**************/
 /* Validation */
+/**************/
+
 .input-error {
   border-color: #e74c3c !important;
   color: #e74c3c !important;
@@ -135,6 +138,22 @@ p {
   width: 128px; height: 128px;
   display: table;
   margin: 0 auto;
+}
+
+.go-back {
+  text-align: center;
+}
+
+.go-back > a {
+  text-decoration: none;
+  color: #7f8c8d;
+  border-bottom: 1px solid #7f8c8d;
+  /*transition: 0.3s;*/
+}
+
+.go-back > a:hover {
+  color: #27ae60;
+  border-bottom: 5px solid #bdc3c7;
 }
 
 .submit-button {
