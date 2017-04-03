@@ -1,8 +1,4 @@
-/**********/
-/*  MAIN  */
-/**********/
-
-/* General element */
+/* General elements */
 body {
   margin: 0; padding: 0;
   background-color: #ecf0f1;
@@ -75,10 +71,7 @@ p {
   border-left: 24px solid black;
 }
 
-/**********/
-/* INPUTS */
-/**********/
-
+/* Inputs */
 .input-block {
   margin-top: 20px;
   margin-bottom: 15px;
@@ -105,10 +98,7 @@ p {
   margin-top: 10px;
 }
 
-/**************/
 /* Validation */
-/**************/
-
 .input-error {
   border-color: #e74c3c !important;
   color: #e74c3c !important;
@@ -148,7 +138,7 @@ p {
   text-decoration: none;
   color: #7f8c8d;
   border-bottom: 1px solid #7f8c8d;
-  /*transition: 0.3s;*/
+  transition: 0.2s;
 }
 
 .go-back > a:hover {

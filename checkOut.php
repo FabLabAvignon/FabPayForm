@@ -80,6 +80,9 @@
             <div class=\"status\">
               <div class=\"failure\"></div>
             </div>
+          </div>
+          <div class=\"go-back\">
+            <a href=\"./\">Revenir au formulaire</a>
           </div>");
       exit;
     } else {
@@ -146,19 +149,19 @@
 
       /* Display success page */
       print("
-      <div class=\"container\">
-      <h1>Et voilà, c'est fait !</h1>
-      <br>
-      <p>
-        Toute nos félicitations, vous êtes désormais l'un de nos membres. Bienvenue à Avilab, cher maker !
-      </p>
-      <div class=\"status\">
-        <div class=\"success\"></div>
-      </div>
-    </div>
-    <div class=\"go-back\">
-      <a class=\"go-back\" href=\"http://www.avilab.fr\">Revenir sur avilab.fr</a>
-    </div>\"");
+          <div class=\"container\">
+            <h1>Et voilà, c'est fait !</h1>
+            <br>
+            <p>
+              Toute nos félicitations, vous êtes désormais l'un de nos membres. Bienvenue à Avilab, cher maker !
+            </p>
+            <div class=\"status\">
+              <div class=\"success\"></div>
+            </div>
+          </div>
+          <div class=\"go-back\">
+            <a href=\"http://www.avilab.fr\">Revenir sur avilab.fr</a>
+          </div>");
     }
     /* End page */
     print("
